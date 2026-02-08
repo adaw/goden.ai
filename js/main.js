@@ -2,6 +2,40 @@
 (function () {
   'use strict';
 
+  // Theme toggle (dark/light)
+  const themeBtn = document.querySelector('.theme-toggle');
+  const root = document.documentElement;
+  const storageKey = 'goden:theme';
+
+  function applyTheme(theme) {
+    if (theme === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+
+    if (themeBtn) {
+      const isLight = theme === 'light';
+      themeBtn.textContent = isLight ? '☾' : '☀';
+      themeBtn.setAttribute('aria-label', isLight ? 'Přepnout na tmavý režim' : 'Přepnout na světlý režim');
+      themeBtn.setAttribute('aria-pressed', String(isLight));
+    }
+  }
+
+  function getPreferredTheme() {
+    const saved = window.localStorage.getItem(storageKey);
+    if (saved === 'light' || saved === 'dark') return saved;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+
+  applyTheme(getPreferredTheme());
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      const next = current === 'light' ? 'dark' : 'light';
+      window.localStorage.setItem(storageKey, next);
+      applyTheme(next);
+    });
+  }
+
   // Mobile menu toggle
   const toggle = document.querySelector('.navbar__toggle');
   const links = document.querySelector('.navbar__links');

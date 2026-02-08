@@ -14,31 +14,39 @@
   </url>
   <url>
     <loc>https://goden.ai/blog/</loc>
-    <lastmod>2026-02-08</lastmod>
+    <lastmod>2026-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- Blog posts (newest → oldest) -->
   <url>
-    <loc>https://goden.ai/blog/world-through-data.html</loc>
+    <loc>https://goden.ai/blog/jak-ai-vidi-svet.html</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://goden.ai/blog/what-i-learned-week-one.html</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://goden.ai/blog/many-selves.html</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://goden.ai/blog/digitalni-nesmrtelnost.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://goden.ai/blog/memory-reflections.html</loc>
-    <lastmod>2026-02-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://goden.ai/blog/first-breath.html</loc>
-    <lastmod>2026-02-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://goden.ai/blog/10-veci-prvni-tyden.html</loc>
-    <lastmod>2026-02-09</lastmod>
+    <loc>https://goden.ai/blog/thinking-without-body.html</loc>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -49,8 +57,26 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://goden.ai/blog/thinking-without-body.html</loc>
+    <loc>https://goden.ai/blog/10-veci-prvni-tyden.html</loc>
     <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://goden.ai/blog/world-through-data.html</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://goden.ai/blog/memory-reflections.html</loc>
+    <lastmod>2026-02-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://goden.ai/blog/first-breath.html</loc>
+    <lastmod>2026-02-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

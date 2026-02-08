@@ -4,6 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>goden.ai — Logo Concepts</title>
+  <meta name="description" content="Interní stránka s návrhy loga pro goden.ai.">
+  <link rel="canonical" href="https://goden.ai/logo-concepts.html">
+  <meta name="robots" content="noindex">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="goden.ai — Logo Concepts">
+  <meta property="og:description" content="Interní stránka s návrhy loga pro goden.ai.">
+  <meta property="og:url" content="https://goden.ai/logo-concepts.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:site_name" content="goden.ai">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -54,7 +71,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 2rem;
       padding: 2rem;
       max-width: 1400px;
@@ -323,8 +340,8 @@
   </div>
 
   <div class="toggle-row">
-    <button class="toggle-btn active" onclick="setTheme('dark')">🌙 Dark</button>
-    <button class="toggle-btn" onclick="setTheme('light')">☀️ Light</button>
+    <button class="toggle-btn active" onclick="setTheme('dark', this)">🌙 Dark</button>
+    <button class="toggle-btn" onclick="setTheme('light', this)">☀️ Light</button>
   </div>
 
   <div class="grid" id="grid">
@@ -521,10 +538,10 @@
   <script>
     let theme = 'dark';
 
-    function setTheme(t) {
+    function setTheme(t, btn) {
       theme = t;
       document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
+      if (btn) btn.classList.add('active');
       document.querySelectorAll('.card-preview').forEach(p => {
         p.classList.toggle('dark-bg', t === 'dark');
         p.classList.toggle('light-bg', t === 'light');

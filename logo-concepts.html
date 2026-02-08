@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>goden.ai — Logo Concepts</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #0a0a0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    .header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+    .header h1 {
+      font-size: 2rem;
+      color: #96f0aa;
+      margin-bottom: 0.5rem;
+    }
+    .header p {
+      color: #888;
+      font-size: 0.95rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .toggle-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .toggle-btn {
+      padding: 0.5rem 1.5rem;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background: transparent;
+      color: #aaa;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .toggle-btn.active {
+      border-color: #96f0aa;
+      color: #96f0aa;
+      background: rgba(150, 240, 170, 0.08);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      border: 1px solid #1a1a2e;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .card:hover {
+      border-color: #333;
+      transform: translateY(-2px);
+    }
+    .card.selected {
+      border-color: #96f0aa;
+      box-shadow: 0 0 20px rgba(150, 240, 170, 0.15);
+    }
+
+    .card-preview {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-preview.dark-bg {
+      background: #0f0f1a;
+    }
+    .card-preview.light-bg {
+      background: #f8f9fb;
+    }
+
+    .card-info {
+      padding: 1rem 1.2rem;
+      background: #111118;
+      border-top: 1px solid #1a1a2e;
+    }
+    .card-info h3 {
+      font-size: 1rem;
+      color: #e0e0e0;
+      margin-bottom: 0.3rem;
+    }
+    .card-info p {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .card-select {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #333;
+      background: rgba(0,0,0,0.5);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+    .card.selected .card-select {
+      border-color: #96f0aa;
+      background: #96f0aa;
+    }
+    .card.selected .card-select::after {
+      content: '✓';
+      color: #0a0a0f;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* Logo styles */
+    .logo { font-weight: 700; letter-spacing: -0.02em; }
+    
+    /* 1: Clean Wordmark */
+    .logo-1 { font-size: 3.2rem; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .logo-1 .dot { color: #96f0aa; }
+    .logo-1-light { color: #1a1a2e; }
+    .logo-1-light .dot { color: #0d8a3a; }
+
+    /* 2: Monospace */
+    .logo-2 { font-size: 2.8rem; font-family: 'SF Mono', 'Fira Code', monospace; color: #96f0aa; letter-spacing: 0.05em; }
+    .logo-2-light { color: #065a1e; }
+
+    /* 3: Split weight */
+    .logo-3 { font-size: 3rem; font-family: 'Inter', system-ui; }
+    .logo-3 .go { font-weight: 300; color: #888; }
+    .logo-3 .den { font-weight: 800; color: #e0e0e0; }
+    .logo-3 .ai { font-weight: 300; color: #96f0aa; }
+    .logo-3-light .go { color: #999; }
+    .logo-3-light .den { color: #1a1a2e; }
+    .logo-3-light .ai { color: #0d8a3a; }
+
+    /* 4: Underscore prefix */
+    .logo-4 { font-size: 3rem; font-family: 'Inter', system-ui; font-weight: 800; color: #e0e0e0; }
+    .logo-4 .prefix { color: #96f0aa; }
+    .logo-4-light { color: #1a1a2e; }
+    .logo-4-light .prefix { color: #0d8a3a; }
+
+    /* 5: Brain icon */
+    .logo-5-wrap { display: flex; align-items: center; gap: 0.8rem; }
+    .logo-5-icon { width: 52px; height: 52px; }
+    .logo-5 { font-size: 2.6rem; font-family: 'Inter', system-ui; font-weight: 700; color: #e0e0e0; }
+    .logo-5 .dot { color: #96f0aa; }
+    .logo-5-light { color: #1a1a2e; }
+    .logo-5-light .dot { color: #0d8a3a; }
+
+    /* 6: Neural G */
+    .logo-6-wrap { display: flex; align-items: center; gap: 0.6rem; }
+    .logo-6 { font-size: 2.6rem; font-family: 'Inter', system-ui; font-weight: 700; color: #e0e0e0; letter-spacing: 0.02em; }
+    .logo-6 .rest { color: #888; font-weight: 400; }
+    .logo-6-light { color: #1a1a2e; }
+    .logo-6-light .rest { color: #666; }
+
+    /* 7: Stacked */
+    .logo-7 { text-align: center; }
+    .logo-7 .main { font-size: 3.2rem; font-weight: 800; color: #e0e0e0; display: block; line-height: 1; }
+    .logo-7 .sub { font-size: 0.95rem; color: #96f0aa; letter-spacing: 0.35em; text-transform: uppercase; font-weight: 500; }
+    .logo-7-light .main { color: #1a1a2e; }
+    .logo-7-light .sub { color: #0d8a3a; }
+
+    /* 8: Dot matrix */
+    .logo-8 { font-size: 2.8rem; font-family: 'Inter', system-ui; font-weight: 800; color: #e0e0e0; position: relative; }
+    .logo-8 .g-dot { position: relative; }
+    .logo-8 .g-dot::after { content: ''; width: 8px; height: 8px; background: #96f0aa; border-radius: 50%; position: absolute; top: -2px; right: -4px; }
+    .logo-8-light { color: #1a1a2e; }
+    .logo-8-light .g-dot::after { background: #0d8a3a; }
+
+    /* 9: Slash */
+    .logo-9 { font-size: 3rem; font-family: 'Inter', system-ui; font-weight: 700; }
+    .logo-9 .name { color: #e0e0e0; }
+    .logo-9 .slash { color: #333; margin: 0 0.1em; font-weight: 300; }
+    .logo-9 .domain { color: #96f0aa; font-weight: 400; }
+    .logo-9-light .name { color: #1a1a2e; }
+    .logo-9-light .slash { color: #ccc; }
+    .logo-9-light .domain { color: #0d8a3a; }
+
+    /* 10: Bracket */
+    .logo-10 { font-size: 2.8rem; font-family: 'SF Mono', 'Fira Code', monospace; font-weight: 600; }
+    .logo-10 .bracket { color: #96f0aa; font-weight: 300; }
+    .logo-10 .text { color: #e0e0e0; }
+    .logo-10-light .bracket { color: #0d8a3a; }
+    .logo-10-light .text { color: #1a1a2e; }
+
+    /* 11: Circle G mark */
+    .logo-11-wrap { display: flex; align-items: center; gap: 1rem; }
+    .logo-11-mark {
+      width: 56px; height: 56px;
+      border: 3px solid #96f0aa;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; font-weight: 800; color: #96f0aa;
+      font-family: 'Inter', system-ui;
+    }
+    .logo-11 { font-size: 2.4rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .logo-11-light .logo-11-mark { border-color: #0d8a3a; color: #0d8a3a; }
+    .logo-11-light .logo-11 { color: #1a1a2e; }
+
+    /* 12: Gradient text */
+    .logo-12 { 
+      font-size: 3.2rem; font-weight: 800; font-family: 'Inter', system-ui;
+      background: linear-gradient(135deg, #96f0aa, #4ecdc4, #96f0aa);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* 13: Dots pattern */
+    .logo-13-wrap { display: flex; align-items: center; gap: 0.5rem; }
+    .logo-13-dots { display: grid; grid-template-columns: repeat(3, 6px); gap: 4px; }
+    .logo-13-dots span { width: 6px; height: 6px; border-radius: 50%; background: #96f0aa; }
+    .logo-13-dots span:nth-child(5) { background: #4ecdc4; }
+    .logo-13-dots span:nth-child(9) { background: #2d8a4e; }
+    .logo-13 { font-size: 2.6rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .logo-13 .ai { color: #96f0aa; font-weight: 400; }
+    .logo-13-light .logo-13 { color: #1a1a2e; }
+    .logo-13-light .logo-13 .ai { color: #0d8a3a; }
+    .logo-13-light .logo-13-dots span { background: #0d8a3a; }
+    .logo-13-light .logo-13-dots span:nth-child(5) { background: #0a6e50; }
+    .logo-13-light .logo-13-dots span:nth-child(9) { background: #065a1e; }
+
+    /* 14: Minimal mark — just G */
+    .logo-14 {
+      font-size: 4.5rem; font-weight: 900; font-family: 'Inter', system-ui;
+      color: #96f0aa; line-height: 1;
+    }
+    .logo-14-light { color: #0d8a3a; }
+
+    /* 15: Neural wordmark with connections */
+    .logo-15 { font-size: 2.8rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; position: relative; }
+    .logo-15 .dot { color: #96f0aa; }
+    .logo-15::after { 
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0; 
+      height: 2px; background: linear-gradient(90deg, transparent, #96f0aa, transparent); 
+    }
+    .logo-15-light { color: #1a1a2e; }
+    .logo-15-light .dot { color: #0d8a3a; }
+    .logo-15-light::after { background: linear-gradient(90deg, transparent, #0d8a3a, transparent); }
+
+    /* 16: Typewriter cursor */
+    .logo-16 { font-size: 2.8rem; font-family: 'SF Mono', monospace; font-weight: 600; color: #e0e0e0; }
+    .logo-16 .cursor { display: inline-block; width: 3px; height: 2.4rem; background: #96f0aa; margin-left: 4px; animation: blink 1s step-end infinite; vertical-align: middle; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .logo-16-light { color: #1a1a2e; }
+    .logo-16-light .cursor { background: #0d8a3a; }
+
+    /* 17: Hexagon mark */
+    .logo-17-wrap { display: flex; align-items: center; gap: 0.8rem; }
+    .logo-17 { font-size: 2.4rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .logo-17 .ai { color: #96f0aa; }
+    .logo-17-light { color: #1a1a2e; }
+    .logo-17-light .ai { color: #0d8a3a; }
+
+    /* 18: Reversed colors */
+    .logo-18-wrap { display: inline-flex; align-items: center; }
+    .logo-18-badge {
+      background: #96f0aa; color: #0a0a0f; padding: 0.3rem 0.7rem;
+      font-size: 2.6rem; font-weight: 800; font-family: 'Inter', system-ui;
+      border-radius: 8px; margin-right: 0.4rem;
+    }
+    .logo-18 { font-size: 2.6rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .logo-18-light .logo-18-badge { background: #0d8a3a; color: white; }
+    .logo-18-light .logo-18 { color: #1a1a2e; }
+
+    /* 19: Wave underline */
+    .logo-19 { font-size: 3rem; font-weight: 800; color: #e0e0e0; font-family: 'Inter', system-ui; position: relative; display: inline-block; }
+    .logo-19 .ai { color: #96f0aa; }
+    .logo-19-light { color: #1a1a2e; }
+    .logo-19-light .ai { color: #0d8a3a; }
+
+    /* 20: Compact square */
+    .logo-20 {
+      width: 60px; height: 60px; border: 2px solid #96f0aa; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; font-weight: 800; color: #96f0aa; font-family: 'Inter', system-ui;
+      letter-spacing: -0.05em;
+    }
+    .logo-20-light { border-color: #0d8a3a; color: #0d8a3a; }
+
+    /* Export */
+    .export-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(10, 10, 15, 0.95); border-top: 1px solid #1a1a2e;
+      padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
+      backdrop-filter: blur(12px); z-index: 100;
+    }
+    .export-bar .count { color: #96f0aa; font-weight: 600; }
+    .export-btn {
+      background: #96f0aa; color: #0a0a0f; border: none; padding: 0.6rem 1.5rem;
+      border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.9rem;
+    }
+    .export-btn:hover { background: #7dd99a; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>goden.ai — Logo Concepts</h1>
+    <p>Klikni na koncepty, které se ti líbí. Jednoduché = síla. Goden.ai je AI platforma — Lex jako mozek, blog, sociální síť, nástroje.</p>
+  </div>
+
+  <div class="toggle-row">
+    <button class="toggle-btn active" onclick="setTheme('dark')">🌙 Dark</button>
+    <button class="toggle-btn" onclick="setTheme('light')">☀️ Light</button>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- 1: Clean Wordmark -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Clean Wordmark">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-1">goden<span class="dot">.</span>ai</span></div>
+      <div class="card-info"><h3>#1 — Clean Wordmark</h3><p>Čistý, moderní. Tečka jako accent.</p></div>
+    </div>
+
+    <!-- 2: Monospace -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Monospace Terminal">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-2">goden.ai</span></div>
+      <div class="card-info"><h3>#2 — Monospace Terminal</h3><p>Programátorský vibe, tech DNA.</p></div>
+    </div>
+
+    <!-- 3: Split Weight -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Split Weight">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-3"><span class="go">go</span><span class="den">den</span><span class="ai">.ai</span></span></div>
+      <div class="card-info"><h3>#3 — Split Weight</h3><p>Kontrast lehké/těžké. "den" jako jádro.</p></div>
+    </div>
+
+    <!-- 4: Underscore Prefix -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Underscore Prefix">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-4"><span class="prefix">_</span>goden.ai</span></div>
+      <div class="card-info"><h3>#4 — Underscore Prefix</h3><p>Inspirováno _CORE stylem. System-level.</p></div>
+    </div>
+
+    <!-- 5: Brain Icon -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Brain Mark">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg">
+        <div class="logo-5-wrap">
+          <svg class="logo-5-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M26 8C18 8 12 14 12 22c0 5 2.5 9 6 11.5V40a2 2 0 002 2h12a2 2 0 002-2v-6.5c3.5-2.5 6-6.5 6-11.5 0-8-6-14-14-14z" stroke="#96f0aa" stroke-width="2.5" fill="none"/>
+            <path d="M20 42h12M22 45h8" stroke="#96f0aa" stroke-width="2" stroke-linecap="round"/>
+            <path d="M26 14v8M22 18h8" stroke="#96f0aa" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+          </svg>
+          <span class="logo logo-5">goden<span class="dot">.</span>ai</span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#5 — Brain Mark</h3><p>Žárovka/mozek + wordmark. Lex = myšlení.</p></div>
+    </div>
+
+    <!-- 6: Bold G + rest -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Bold G">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg">
+        <div class="logo-6-wrap">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" stroke="#96f0aa" stroke-width="3" fill="none" stroke-dasharray="4 3"/>
+            <text x="24" y="31" text-anchor="middle" fill="#96f0aa" font-size="24" font-weight="800" font-family="Inter, system-ui">G</text>
+          </svg>
+          <span class="logo logo-6">oden<span class="rest">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#6 — Neural G</h3><p>G v kruhu s neural dashes + zbytku textu.</p></div>
+    </div>
+
+    <!-- 7: Stacked -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Stacked">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg">
+        <div class="logo-7"><span class="main">GODEN</span><span class="sub">artificial intelligence</span></div>
+      </div>
+      <div class="card-info"><h3>#7 — Stacked</h3><p>GODEN nahoře, "artificial intelligence" pod. Formální.</p></div>
+    </div>
+
+    <!-- 8: Dot accent -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Dot Accent">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-8"><span class="g-dot">g</span>oden.ai</span></div>
+      <div class="card-info"><h3>#8 — Dot Accent</h3><p>Malá zelená tečka nad G — signál, neuron.</p></div>
+    </div>
+
+    <!-- 9: Slash -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Slash">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-9"><span class="name">goden</span><span class="slash">/</span><span class="domain">ai</span></span></div>
+      <div class="card-info"><h3>#9 — Slash</h3><p>Path-style separator. goden/ai jako cesta.</p></div>
+    </div>
+
+    <!-- 10: Bracket -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Bracket">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-10"><span class="bracket">{</span><span class="text">goden</span><span class="bracket">}</span></span></div>
+      <div class="card-info"><h3>#10 — Bracket</h3><p>JSON/kód syntax. Developer-first.</p></div>
+    </div>
+
+    <!-- 11: Circle G Mark -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Circle G Mark">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg">
+        <div class="logo-11-wrap">
+          <div class="logo-11-mark">G</div>
+          <span class="logo logo-11">goden.ai</span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#11 — Circle G Mark</h3><p>Standalone G mark + wordmark. Skvělé jako favicon.</p></div>
+    </div>
+
+    <!-- 12: Gradient -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Gradient">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-12">goden.ai</span></div>
+      <div class="card-info"><h3>#12 — Gradient</h3><p>Zelený/teal gradient text. Živé, energické.</p></div>
+    </div>
+
+    <!-- 13: Dots Pattern -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Dots Pattern">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg">
+        <div class="logo-13-wrap">
+          <div class="logo-13-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <span class="logo logo-13">goden<span class="ai">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#13 — Dots Grid</h3><p>3×3 neural grid + wordmark. Data/síť metafora.</p></div>
+    </div>
+
+    <!-- 14: Just G -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Minimal G">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-14">G</span></div>
+      <div class="card-info"><h3>#14 — Minimal G</h3><p>Jen G. Maximum jednoduchosti. Favicon-ready.</p></div>
+    </div>
+
+    <!-- 15: Underline Glow -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Underline Glow">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-15">goden<span class="dot">.</span>ai</span></div>
+      <div class="card-info"><h3>#15 — Underline Glow</h3><p>Gradient linka pod textem. Energie, propojení.</p></div>
+    </div>
+
+    <!-- 16: Typewriter -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Typewriter Cursor">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-16">goden.ai<span class="cursor"></span></span></div>
+      <div class="card-info"><h3>#16 — Typewriter Cursor</h3><p>Blikající kurzor. AI píše, myslí, generuje.</p></div>
+    </div>
+
+    <!-- 17: Hex mark -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Hexagon Mark">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg">
+        <div class="logo-17-wrap">
+          <svg width="44" height="48" viewBox="0 0 44 48" fill="none">
+            <path d="M22 2L42 14v20L22 46 2 34V14z" stroke="#96f0aa" stroke-width="2.5" fill="none"/>
+            <circle cx="22" cy="24" r="3" fill="#96f0aa"/>
+            <line x1="22" y1="24" x2="10" y2="16" stroke="#96f0aa" stroke-width="1" opacity="0.4"/>
+            <line x1="22" y1="24" x2="34" y2="16" stroke="#96f0aa" stroke-width="1" opacity="0.4"/>
+            <line x1="22" y1="24" x2="22" y2="38" stroke="#96f0aa" stroke-width="1" opacity="0.4"/>
+          </svg>
+          <span class="logo logo-17">goden<span class="ai">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#17 — Hexagon Node</h3><p>Hexagonální node mark. Síť, propojení.</p></div>
+    </div>
+
+    <!-- 18: Badge G -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Badge G">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg">
+        <div class="logo-18-wrap"><span class="logo-18-badge">G</span><span class="logo logo-18">oden.ai</span></div>
+      </div>
+      <div class="card-info"><h3>#18 — Badge G</h3><p>G na zeleném pozadí + zbytek. Silný brand mark.</p></div>
+    </div>
+
+    <!-- 19: Simple bold -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Simple Bold">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><span class="logo logo-19">goden<span class="ai">.ai</span></span></div>
+      <div class="card-info"><h3>#19 — Simple Bold</h3><p>Maximum jednoduchost. Tučné jméno, zelená .ai.</p></div>
+    </div>
+
+    <!-- 20: Square Mark -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Square Mark">
+      <div class="card-select"></div>
+      <div class="card-preview dark-bg"><div class="logo-20">G.ai</div></div>
+      <div class="card-info"><h3>#20 — Square Mark</h3><p>Kompaktní čtverec s G.ai. App icon ready.</p></div>
+    </div>
+
+  </div>
+
+  <div class="export-bar">
+    <span>Vybrané: <span class="count" id="count">0</span></span>
+    <button class="export-btn" onclick="exportSelection()">📋 Export výběr</button>
+  </div>
+
+  <script>
+    let theme = 'dark';
+
+    function setTheme(t) {
+      theme = t;
+      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      document.querySelectorAll('.card-preview').forEach(p => {
+        p.classList.toggle('dark-bg', t === 'dark');
+        p.classList.toggle('light-bg', t === 'light');
+      });
+      // Toggle light-mode class variants
+      document.querySelectorAll('[class*="-light"]').forEach(el => {
+        // handled via CSS below
+      });
+      document.body.style.background = t === 'dark' ? '#0a0a0f' : '#f0f1f3';
+      document.body.style.color = t === 'dark' ? '#e0e0e0' : '#2d2d3a';
+      document.querySelectorAll('.card-info').forEach(ci => {
+        ci.style.background = t === 'dark' ? '#111118' : '#ffffff';
+        ci.style.borderColor = t === 'dark' ? '#1a1a2e' : '#e5e7eb';
+      });
+      document.querySelectorAll('.card').forEach(c => {
+        c.style.borderColor = c.classList.contains('selected') ? '#96f0aa' : (t === 'dark' ? '#1a1a2e' : '#e5e7eb');
+      });
+
+      // Apply light/dark class toggles
+      const pairs = [
+        ['logo-1', 'logo-1-light'], ['logo-2', 'logo-2-light'], ['logo-3', 'logo-3-light'],
+        ['logo-4', 'logo-4-light'], ['logo-5', 'logo-5-light'], ['logo-6', 'logo-6-light'],
+        ['logo-7', 'logo-7-light'], ['logo-8', 'logo-8-light'], ['logo-9', 'logo-9-light'],
+        ['logo-10', 'logo-10-light'], ['logo-14', 'logo-14-light'], ['logo-15', 'logo-15-light'],
+        ['logo-16', 'logo-16-light'], ['logo-17', 'logo-17-light'], ['logo-19', 'logo-19-light'],
+        ['logo-20', 'logo-20-light']
+      ];
+      pairs.forEach(([base, light]) => {
+        document.querySelectorAll('.' + base).forEach(el => {
+          el.classList.toggle(light, t === 'light');
+        });
+      });
+      // Wrappers with -light
+      ['logo-5-wrap', 'logo-6-wrap', 'logo-11-wrap', 'logo-13-wrap', 'logo-17-wrap', 'logo-18-wrap'].forEach(cls => {
+        const lightCls = cls.replace('-wrap', '-light');
+        document.querySelectorAll('.' + cls).forEach(el => {
+          const parent = el.closest('.card-preview');
+          if (parent) parent.classList.toggle(lightCls, t === 'light');
+        });
+      });
+      // Special: logo-7
+      document.querySelectorAll('.logo-7').forEach(el => el.classList.toggle('logo-7-light', t === 'light'));
+      // logo-11
+      document.querySelectorAll('.logo-11-wrap').forEach(el => el.classList.toggle('logo-11-light', t === 'light'));
+      document.querySelectorAll('.logo-13-wrap').forEach(el => el.classList.toggle('logo-13-light', t === 'light'));
+      document.querySelectorAll('.logo-18-wrap').forEach(el => el.classList.toggle('logo-18-light', t === 'light'));
+    }
+
+    function toggleSelect(card) {
+      card.classList.toggle('selected');
+      updateCount();
+    }
+
+    function updateCount() {
+      document.getElementById('count').textContent = document.querySelectorAll('.card.selected').length;
+    }
+
+    function exportSelection() {
+      const selected = [...document.querySelectorAll('.card.selected')].map(c => c.dataset.name);
+      if (!selected.length) { alert('Nic nevybráno!'); return; }
+      const text = 'goden.ai logo výběr:\n' + selected.map((s, i) => `${i + 1}. ${s}`).join('\n');
+      navigator.clipboard.writeText(text).then(() => alert('Zkopírováno do schránky!')).catch(() => {
+        prompt('Výběr:', text);
+      });
+    }
+  </script>
+</body>
+</html>

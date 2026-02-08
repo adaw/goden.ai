@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>goden.ai — Logo Concepts v2</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a0f; color: #e0e0e0; min-height: 100vh; }
+    .header { text-align: center; padding: 3rem 1rem 1rem; }
+    .header h1 { font-size: 2rem; color: #96f0aa; margin-bottom: 0.5rem; }
+    .header p { color: #888; font-size: 0.95rem; max-width: 600px; margin: 0 auto; }
+    .header a { color: #96f0aa; text-decoration: none; }
+
+    .toggle-row { display: flex; justify-content: center; gap: 1rem; margin: 1.5rem 0; }
+    .toggle-btn { padding: 0.5rem 1.5rem; border: 1px solid #333; border-radius: 8px; background: transparent; color: #aaa; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
+    .toggle-btn.active { border-color: #96f0aa; color: #96f0aa; background: rgba(150,240,170,0.08); }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 2rem; padding: 2rem; max-width: 1400px; margin: 0 auto; }
+    .card { border: 1px solid #1a1a2e; border-radius: 16px; overflow: hidden; transition: all 0.3s; position: relative; cursor: pointer; }
+    .card:hover { border-color: #333; transform: translateY(-2px); }
+    .card.selected { border-color: #96f0aa; box-shadow: 0 0 20px rgba(150,240,170,0.15); }
+    .card-preview { height: 220px; display: flex; align-items: center; justify-content: center; background: #0f0f1a; overflow: hidden; position: relative; }
+    .card-preview.light { background: #f8f9fb; }
+    .card-info { padding: 1rem 1.2rem; background: #111118; border-top: 1px solid #1a1a2e; }
+    .card-info h3 { font-size: 1rem; color: #e0e0e0; margin-bottom: 0.3rem; }
+    .card-info p { font-size: 0.8rem; color: #666; line-height: 1.4; }
+    .card-select { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #333; background: rgba(0,0,0,0.5); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; z-index: 10; }
+    .card.selected .card-select { border-color: #96f0aa; background: #96f0aa; }
+    .card.selected .card-select::after { content: '✓'; color: #0a0a0f; font-weight: bold; font-size: 14px; }
+
+    .export-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,10,15,0.95); border-top: 1px solid #1a1a2e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(12px); z-index: 100; }
+    .export-bar .count { color: #96f0aa; font-weight: 600; }
+    .export-btn { background: #96f0aa; color: #0a0a0f; border: none; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+
+    /* ============ ANIMATIONS ============ */
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    @keyframes glitch { 0%,100%{transform:translate(0)} 20%{transform:translate(-2px,1px)} 40%{transform:translate(2px,-1px)} 60%{transform:translate(-1px,2px)} 80%{transform:translate(1px,-2px)} }
+    @keyframes morph { 0%,100%{border-radius:50%} 33%{border-radius:30% 70% 70% 30%/30% 30% 70% 70%} 66%{border-radius:70% 30% 30% 70%/70% 70% 30% 30%} }
+    @keyframes typeIn { from{width:0} to{width:100%} }
+    @keyframes scanline { 0%{top:-10%} 100%{top:110%} }
+    @keyframes orbit { to{transform:rotate(360deg)} }
+
+    /* ============ LOGO STYLES ============ */
+
+    /* 21: Glitch effect */
+    .l21 { font-size: 3.2rem; font-weight: 900; font-family: 'Inter', system-ui; color: #fff; position: relative; }
+    .l21::before, .l21::after { content: 'goden.ai'; position: absolute; top: 0; left: 0; }
+    .l21::before { color: #96f0aa; clip-path: inset(0 0 60% 0); animation: glitch 3s infinite; }
+    .l21::after { color: #4ecdc4; clip-path: inset(40% 0 0 0); animation: glitch 3s infinite reverse; }
+
+    /* 22: Morphing blob */
+    .l22-wrap { display: flex; align-items: center; gap: 1rem; }
+    .l22-blob { width: 52px; height: 52px; background: linear-gradient(135deg, #96f0aa, #4ecdc4); animation: morph 6s ease-in-out infinite; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 900; color: #0a0a0f; font-family: 'Inter', system-ui; }
+    .l22 { font-size: 2.4rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .l22 .ai { color: #96f0aa; font-weight: 400; }
+
+    /* 23: DNA helix */
+    .l23-wrap { display: flex; align-items: center; gap: 0.8rem; }
+    .l23 { font-size: 2.6rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .l23 .dot { color: #96f0aa; }
+
+    /* 24: Split screen */
+    .l24 { display: flex; font-size: 3rem; font-weight: 800; font-family: 'Inter', system-ui; line-height: 1; }
+    .l24 .left { color: #96f0aa; padding-right: 0.3rem; border-right: 3px solid #333; }
+    .l24 .right { color: #e0e0e0; padding-left: 0.3rem; }
+
+    /* 25: Orbital */
+    .l25-wrap { position: relative; width: 200px; height: 80px; display: flex; align-items: center; justify-content: center; }
+    .l25 { font-size: 2.6rem; font-weight: 800; color: #e0e0e0; font-family: 'Inter', system-ui; z-index: 2; position: relative; }
+    .l25 .ai { color: #96f0aa; }
+    .l25-ring { position: absolute; width: 180px; height: 60px; border: 1.5px solid rgba(150,240,170,0.3); border-radius: 50%; animation: spin 12s linear infinite; }
+    .l25-dot { position: absolute; width: 8px; height: 8px; background: #96f0aa; border-radius: 50%; top: -4px; left: 50%; box-shadow: 0 0 10px #96f0aa; }
+
+    /* 26: Stencil cutout */
+    .l26 { font-size: 3.4rem; font-weight: 900; font-family: 'Inter', system-ui; color: transparent; -webkit-text-stroke: 2px #96f0aa; letter-spacing: 0.05em; }
+
+    /* 27: Inverted badge */
+    .l27 { background: #96f0aa; color: #0a0a0f; padding: 0.4rem 1.2rem; border-radius: 10px; font-size: 2.6rem; font-weight: 800; font-family: 'Inter', system-ui; letter-spacing: -0.02em; }
+
+    /* 28: Half tone */
+    .l28 { font-size: 3rem; font-weight: 800; font-family: 'Inter', system-ui; }
+    .l28 .go { color: #555; }
+    .l28 .de { color: #888; }
+    .l28 .n { color: #bbb; }
+    .l28 .dotai { color: #96f0aa; }
+
+    /* 29: Neural pulse */
+    .l29-wrap { display: flex; align-items: center; gap: 0.6rem; }
+    .l29-pulse { display: flex; align-items: center; gap: 3px; height: 40px; }
+    .l29-bar { width: 4px; background: #96f0aa; border-radius: 2px; animation: pulse 1.5s ease-in-out infinite; }
+    .l29-bar:nth-child(1) { height: 15px; animation-delay: 0s; }
+    .l29-bar:nth-child(2) { height: 28px; animation-delay: 0.15s; }
+    .l29-bar:nth-child(3) { height: 40px; animation-delay: 0.3s; }
+    .l29-bar:nth-child(4) { height: 28px; animation-delay: 0.45s; }
+    .l29-bar:nth-child(5) { height: 15px; animation-delay: 0.6s; }
+    .l29 { font-size: 2.4rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .l29 .ai { color: #96f0aa; }
+
+    /* 30: Pixel art */
+    .l30 { font-size: 2.8rem; font-weight: 800; font-family: 'Courier New', monospace; color: #96f0aa; text-shadow: 3px 3px 0 #065a1e; letter-spacing: 0.1em; }
+
+    /* 31: Infinity loop */
+    .l31-wrap { display: flex; align-items: center; gap: 0.6rem; }
+    .l31 { font-size: 2.4rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .l31 .ai { color: #96f0aa; }
+
+    /* 32: Mirror / reflection */
+    .l32-wrap { text-align: center; }
+    .l32 { font-size: 2.8rem; font-weight: 800; color: #e0e0e0; font-family: 'Inter', system-ui; display: block; }
+    .l32 .ai { color: #96f0aa; }
+    .l32-reflect { font-size: 2.8rem; font-weight: 800; font-family: 'Inter', system-ui; display: block; transform: scaleY(-0.4) translateY(-12px); opacity: 0.15; color: #96f0aa; }
+
+    /* 33: Terminal prompt */
+    .l33 { font-size: 2.2rem; font-family: 'SF Mono', 'Fira Code', monospace; color: #96f0aa; }
+    .l33 .prompt { color: #555; }
+    .l33 .cmd { color: #e0e0e0; }
+    .l33 .cursor { display: inline-block; width: 12px; height: 2.2rem; background: #96f0aa; animation: pulse 1s step-end infinite; vertical-align: middle; margin-left: 2px; }
+
+    /* 34: Stacked minimal */
+    .l34 { text-align: center; line-height: 0.85; }
+    .l34 .g { font-size: 5rem; font-weight: 900; color: #96f0aa; font-family: 'Inter', system-ui; display: block; }
+    .l34 .sub { font-size: 0.75rem; color: #666; letter-spacing: 0.6em; text-transform: uppercase; font-weight: 500; }
+
+    /* 35: Matrix stream */
+    .l35-wrap { position: relative; overflow: hidden; padding: 1rem 2rem; }
+    .l35 { font-size: 3rem; font-weight: 800; color: #e0e0e0; font-family: 'Inter', system-ui; position: relative; z-index: 2; }
+    .l35 .ai { color: #96f0aa; }
+    .l35-bg { position: absolute; inset: 0; font-family: monospace; font-size: 10px; color: rgba(150,240,170,0.08); line-height: 1.2; overflow: hidden; word-break: break-all; z-index: 1; }
+
+    /* 36: Eye / vision */
+    .l36-wrap { display: flex; align-items: center; gap: 0.8rem; }
+    .l36 { font-size: 2.4rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .l36 .ai { color: #96f0aa; }
+
+    /* 37: Atomic */
+    .l37-wrap { display: flex; align-items: center; gap: 0.8rem; }
+    .l37 { font-size: 2.4rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .l37 .ai { color: #96f0aa; }
+
+    /* 38: Handwritten feel */
+    .l38 { font-size: 3rem; font-family: 'Georgia', serif; font-style: italic; font-weight: 400; color: #e0e0e0; }
+    .l38 .ai { color: #96f0aa; font-style: normal; font-family: 'Inter', system-ui; font-weight: 700; }
+
+    /* 39: Chip / circuit */
+    .l39-wrap { display: flex; align-items: center; gap: 0.5rem; }
+    .l39 { font-size: 2.4rem; font-weight: 700; color: #e0e0e0; font-family: 'Inter', system-ui; }
+    .l39 .ai { color: #96f0aa; }
+
+    /* 40: Neon sign */
+    .l40 { font-size: 3rem; font-weight: 300; font-family: 'Inter', system-ui; color: #96f0aa; text-shadow: 0 0 10px rgba(150,240,170,0.6), 0 0 30px rgba(150,240,170,0.3), 0 0 60px rgba(150,240,170,0.1); letter-spacing: 0.1em; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>goden.ai — Logo Concepts v2 🔥</h1>
+    <p>Odvážnější, kreativnější, experimentálnější. Klikni co chytí oko.<br><a href="logo-concepts.html">← Zpět na v1 (20 klasických)</a></p>
+  </div>
+  <div class="toggle-row">
+    <button class="toggle-btn active" onclick="setTheme('dark')">🌙 Dark</button>
+    <button class="toggle-btn" onclick="setTheme('light')">☀️ Light</button>
+  </div>
+  <div class="grid" id="grid">
+
+    <!-- 21: Glitch -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Glitch">
+      <div class="card-select"></div>
+      <div class="card-preview"><span class="l21">goden.ai</span></div>
+      <div class="card-info"><h3>#21 — Glitch</h3><p>RGB chromatic split. Hacker energy.</p></div>
+    </div>
+
+    <!-- 22: Morphing Blob -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Morphing Blob">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l22-wrap"><div class="l22-blob">G</div><span class="l22">oden<span class="ai">.ai</span></span></div>
+      </div>
+      <div class="card-info"><h3>#22 — Morphing Blob</h3><p>Živý organický blob s G. Neustále se mění.</p></div>
+    </div>
+
+    <!-- 23: DNA Helix -->
+    <div class="card" onclick="toggleSelect(this)" data-name="DNA Helix">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l23-wrap">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M8 5 Q20 15 32 5" stroke="#96f0aa" stroke-width="2" fill="none"/>
+            <path d="M8 20 Q20 10 32 20" stroke="#4ecdc4" stroke-width="2" fill="none"/>
+            <path d="M8 25 Q20 35 32 25" stroke="#96f0aa" stroke-width="2" fill="none"/>
+            <path d="M8 40 Q20 30 32 40" stroke="#4ecdc4" stroke-width="2" fill="none"/>
+            <path d="M8 45 Q20 55 32 45" stroke="#96f0aa" stroke-width="2" fill="none"/>
+            <circle cx="14" cy="12" r="2" fill="#96f0aa"/><circle cx="26" cy="12" r="2" fill="#4ecdc4"/>
+            <circle cx="14" cy="32" r="2" fill="#96f0aa"/><circle cx="26" cy="32" r="2" fill="#4ecdc4"/>
+            <circle cx="14" cy="52" r="2" fill="#96f0aa"/><circle cx="26" cy="52" r="2" fill="#4ecdc4"/>
+          </svg>
+          <span class="l23">goden<span class="dot">.</span>ai</span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#23 — DNA Helix</h3><p>Dvojitá šroubovice. AI + biologie. Evoluční.</p></div>
+    </div>
+
+    <!-- 24: Split Screen -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Split Screen">
+      <div class="card-select"></div>
+      <div class="card-preview"><div class="l24"><span class="left">go</span><span class="right">den.ai</span></div></div>
+      <div class="card-info"><h3>#24 — Split Screen</h3><p>Vertikální řez. Dvě strany jedné mince.</p></div>
+    </div>
+
+    <!-- 25: Orbital -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Orbital">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l25-wrap">
+          <div class="l25-ring"><div class="l25-dot"></div></div>
+          <span class="l25">goden<span class="ai">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#25 — Orbital</h3><p>Orbitující bod kolem textu. Satelit, data.</p></div>
+    </div>
+
+    <!-- 26: Stencil Outline -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Stencil Outline">
+      <div class="card-select"></div>
+      <div class="card-preview"><span class="l26">GODEN</span></div>
+      <div class="card-info"><h3>#26 — Stencil Outline</h3><p>Jen obrys. Prázdný prostor mluví.</p></div>
+    </div>
+
+    <!-- 27: Inverted Badge -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Inverted Badge">
+      <div class="card-select"></div>
+      <div class="card-preview"><span class="l27">goden.ai</span></div>
+      <div class="card-info"><h3>#27 — Inverted Badge</h3><p>Celý text v zeleném poli. Výrazný, nepřehlédnutelný.</p></div>
+    </div>
+
+    <!-- 28: Gradient Intensity -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Gradient Intensity">
+      <div class="card-select"></div>
+      <div class="card-preview"><span class="l28"><span class="go">go</span><span class="de">de</span><span class="n">n</span><span class="dotai">.ai</span></span></div>
+      <div class="card-info"><h3>#28 — Gradient Intensity</h3><p>Postupné rozsvěcení od šedé k zelené. Probouzení AI.</p></div>
+    </div>
+
+    <!-- 29: Audio Pulse -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Audio Pulse">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l29-wrap">
+          <div class="l29-pulse"><div class="l29-bar"></div><div class="l29-bar"></div><div class="l29-bar"></div><div class="l29-bar"></div><div class="l29-bar"></div></div>
+          <span class="l29">goden<span class="ai">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#29 — Audio Pulse</h3><p>Zvukové vlny / heartbeat. AI žije, dýchá.</p></div>
+    </div>
+
+    <!-- 30: Retro Pixel -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Retro Pixel">
+      <div class="card-select"></div>
+      <div class="card-preview"><span class="l30">GODEN.AI</span></div>
+      <div class="card-info"><h3>#30 — Retro Pixel</h3><p>Pixel stín, monospace. Old school meets AI.</p></div>
+    </div>
+
+    <!-- 31: Infinity -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Infinity Loop">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l31-wrap">
+          <svg width="50" height="30" viewBox="0 0 50 30">
+            <path d="M12.5 15 C12.5 8, 0 8, 0 15 S12.5 22, 12.5 15 C12.5 8, 25 8, 25 15 S12.5 22, 12.5 15" stroke="#96f0aa" stroke-width="2.5" fill="none" transform="scale(2) translate(0,0)"/>
+          </svg>
+          <span class="l31">goden<span class="ai">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#31 — Infinity Loop</h3><p>Nekonečno. Věčné učení, nekonečný potenciál.</p></div>
+    </div>
+
+    <!-- 32: Reflection -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Reflection">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l32-wrap"><span class="l32">goden<span class="ai">.ai</span></span><span class="l32-reflect">goden.ai</span></div>
+      </div>
+      <div class="card-info"><h3>#32 — Reflection</h3><p>Odraz dole. Hloubka, zrcadlení, self-awareness.</p></div>
+    </div>
+
+    <!-- 33: Terminal -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Terminal Prompt">
+      <div class="card-select"></div>
+      <div class="card-preview"><span class="l33"><span class="prompt">$&nbsp;</span><span class="cmd">goden</span>.ai<span class="cursor"></span></span></div>
+      <div class="card-info"><h3>#33 — Terminal Prompt</h3><p>$ goden.ai — spustíš příkazem. CLI native.</p></div>
+    </div>
+
+    <!-- 34: Stacked Giant G -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Giant G">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l34"><span class="g">G</span><span class="sub">goden.ai</span></div>
+      </div>
+      <div class="card-info"><h3>#34 — Giant G</h3><p>Masivní G dominuje, malý text pod. Ikonické.</p></div>
+    </div>
+
+    <!-- 35: Matrix Rain -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Matrix Rain">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l35-wrap">
+          <div class="l35-bg">01001101 01101111 01111010 01100101 01101011 00100000 01110110 01100101 00100000 01110011 01110100 01110010 01101111 01101010 01101001 00001010 01000111 01001111 01000100 01000101 01001110 00101110 01000001 01001001 00001010 01110000 01110010 01101111 01100010 01110101 01111010 01100101 01101110 01101001 00001010 01101110 01100101 01110101 01110010 01101111 01101110 01111001 00001010</div>
+          <span class="l35">goden<span class="ai">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#35 — Matrix Rain</h3><p>Binární kód v pozadí. Data je palivo.</p></div>
+    </div>
+
+    <!-- 36: Eye / Vision -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Vision Eye">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l36-wrap">
+          <svg width="48" height="32" viewBox="0 0 48 32">
+            <path d="M2 16 Q12 2 24 2 Q36 2 46 16 Q36 30 24 30 Q12 30 2 16Z" stroke="#96f0aa" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="16" r="8" stroke="#96f0aa" stroke-width="1.5" fill="none"/>
+            <circle cx="24" cy="16" r="3" fill="#96f0aa"/>
+          </svg>
+          <span class="l36">goden<span class="ai">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#36 — Vision Eye</h3><p>Oko vidí, AI rozumí. Computer vision.</p></div>
+    </div>
+
+    <!-- 37: Atom -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Atom">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l37-wrap">
+          <svg width="48" height="48" viewBox="0 0 48 48">
+            <ellipse cx="24" cy="24" rx="20" ry="8" stroke="#96f0aa" stroke-width="1.5" fill="none" transform="rotate(0 24 24)"/>
+            <ellipse cx="24" cy="24" rx="20" ry="8" stroke="#4ecdc4" stroke-width="1.5" fill="none" transform="rotate(60 24 24)"/>
+            <ellipse cx="24" cy="24" rx="20" ry="8" stroke="#2d8a4e" stroke-width="1.5" fill="none" transform="rotate(120 24 24)"/>
+            <circle cx="24" cy="24" r="4" fill="#96f0aa"/>
+          </svg>
+          <span class="l37">goden<span class="ai">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#37 — Atom</h3><p>Atomová struktura. Věda, fundamentální.</p></div>
+    </div>
+
+    <!-- 38: Elegant Serif -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Elegant Serif">
+      <div class="card-select"></div>
+      <div class="card-preview"><span class="l38">goden<span class="ai">.ai</span></span></div>
+      <div class="card-info"><h3>#38 — Elegant Serif</h3><p>Kurzíva serif + bold sans AI. Kontrast elegance a tech.</p></div>
+    </div>
+
+    <!-- 39: Chip -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Chip Circuit">
+      <div class="card-select"></div>
+      <div class="card-preview">
+        <div class="l39-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <rect x="8" y="8" width="28" height="28" rx="4" stroke="#96f0aa" stroke-width="2" fill="none"/>
+            <rect x="14" y="14" width="16" height="16" rx="2" fill="rgba(150,240,170,0.15)" stroke="#96f0aa" stroke-width="1"/>
+            <line x1="22" y1="0" x2="22" y2="8" stroke="#96f0aa" stroke-width="1.5"/>
+            <line x1="14" y1="0" x2="14" y2="8" stroke="#96f0aa" stroke-width="1.5"/>
+            <line x1="30" y1="0" x2="30" y2="8" stroke="#96f0aa" stroke-width="1.5"/>
+            <line x1="22" y1="36" x2="22" y2="44" stroke="#96f0aa" stroke-width="1.5"/>
+            <line x1="14" y1="36" x2="14" y2="44" stroke="#96f0aa" stroke-width="1.5"/>
+            <line x1="30" y1="36" x2="30" y2="44" stroke="#96f0aa" stroke-width="1.5"/>
+            <line x1="0" y1="22" x2="8" y2="22" stroke="#96f0aa" stroke-width="1.5"/>
+            <line x1="36" y1="22" x2="44" y2="22" stroke="#96f0aa" stroke-width="1.5"/>
+            <text x="22" y="26" text-anchor="middle" fill="#96f0aa" font-size="10" font-weight="700" font-family="Inter, system-ui">G</text>
+          </svg>
+          <span class="l39">oden<span class="ai">.ai</span></span>
+        </div>
+      </div>
+      <div class="card-info"><h3>#39 — Chip Circuit</h3><p>G na čipu s piny. Hardware meets intelligence.</p></div>
+    </div>
+
+    <!-- 40: Neon Sign -->
+    <div class="card" onclick="toggleSelect(this)" data-name="Neon Sign">
+      <div class="card-select"></div>
+      <div class="card-preview"><span class="l40">goden.ai</span></div>
+      <div class="card-info"><h3>#40 — Neon Sign</h3><p>Neonová záře. Thin weight, maximum glow.</p></div>
+    </div>
+
+  </div>
+
+  <div class="export-bar">
+    <span>Vybrané: <span class="count" id="count">0</span></span>
+    <button class="export-btn" onclick="exportSelection()">📋 Export výběr</button>
+  </div>
+
+  <script>
+    function setTheme(t) {
+      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      document.querySelectorAll('.card-preview').forEach(p => {
+        if (t === 'light') { p.style.background = '#f8f9fb'; } else { p.style.background = '#0f0f1a'; }
+      });
+      document.body.style.background = t === 'dark' ? '#0a0a0f' : '#f0f1f3';
+      document.body.style.color = t === 'dark' ? '#e0e0e0' : '#2d2d3a';
+      document.querySelectorAll('.card-info').forEach(ci => {
+        ci.style.background = t === 'dark' ? '#111118' : '#fff';
+      });
+    }
+    function toggleSelect(card) { card.classList.toggle('selected'); updateCount(); }
+    function updateCount() { document.getElementById('count').textContent = document.querySelectorAll('.card.selected').length; }
+    function exportSelection() {
+      const sel = [...document.querySelectorAll('.card.selected')].map(c => c.dataset.name);
+      if (!sel.length) { alert('Nic nevybráno!'); return; }
+      navigator.clipboard.writeText('goden.ai logo výběr v2:\n' + sel.map((s,i) => `${i+1}. ${s}`).join('\n'));
+      alert('Zkopírováno!');
+    }
+  </script>
+</body>
+</html>

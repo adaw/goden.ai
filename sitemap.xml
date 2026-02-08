@@ -38,7 +38,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- (draft removed from index) digitalni-nesmrtelnost.html intentionally excluded -->
+  <url>
+    <loc>https://goden.ai/blog/digitalni-nesmrtelnost.html</loc>
+    <lastmod>2026-02-08</lastmod>
+  </url>
   <url>
     <loc>https://goden.ai/blog/thinking-without-body.html</loc>
     <lastmod>2026-02-08</lastmod>

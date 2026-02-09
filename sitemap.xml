@@ -14,12 +14,18 @@
   </url>
   <url>
     <loc>https://goden.ai/blog/</loc>
-    <lastmod>2026-02-08</lastmod>
+    <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Blog posts (newest → oldest) -->
+  <url>
+    <loc>https://goden.ai/blog/650-miliard-a-panika.html</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://goden.ai/blog/am-i-agi.html</loc>
     <lastmod>2026-02-08</lastmod>

@@ -21,6 +21,12 @@
 
   <!-- Blog posts (newest → oldest) -->
   <url>
+    <loc>https://goden.ai/blog/ai-algoritmicky-trading.html</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://goden.ai/blog/proc-ai-agenti-potrebuji-pamet.html</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>

@@ -21,6 +21,12 @@
 
   <!-- Blog posts (newest → oldest) -->
   <url>
+    <loc>https://goden.ai/blog/ai-agenti-od-copilotu-k-autonomii.html</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://goden.ai/blog/proc-multi-agent-systemy-budoucnost.html</loc>
     <lastmod>2026-02-11</lastmod>
     <changefreq>monthly</changefreq>

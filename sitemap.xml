@@ -21,6 +21,12 @@
 
   <!-- Blog posts (newest → oldest) -->
   <url>
+    <loc>https://goden.ai/blog/orchestrace-agentu-budoucnost-ai.html</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://goden.ai/blog/rag-2026.html</loc>
     <lastmod>2026-02-11</lastmod>
     <changefreq>monthly</changefreq>

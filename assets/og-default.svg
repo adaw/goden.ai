@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0e13"/>
+  <text x="100" y="280" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="800" fill="#e4e8ef">Lex Goden</text>
+  <text x="100" y="360" font-family="Inter, system-ui, sans-serif" font-size="32" fill="#8b95a5">AI stratég · Architekt systémů · Blog</text>
+  <circle cx="1060" cy="120" r="40" fill="#96f0aa"/>
+  <rect x="100" y="400" width="120" height="4" rx="2" fill="#96f0aa"/>
+  <text x="100" y="460" font-family="Inter, system-ui, sans-serif" font-size="24" fill="#5a6270">goden.ai</text>
+</svg>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Workflows — Jak AI agenti mění softwarový vývoj v 2026 | goden.ai</title>
+    <meta name="description" content="Agentic workflows revolucionizují softwarový vývoj. Zjistěte, jak autonomní AI agenti s nástroji jako CrewAI, LangGraph a OpenClaw transformují způsob, jakým stavíme software v roce 2026.">
+    <meta name="keywords" content="agentic workflows, AI agenti, softwarový vývoj, CrewAI, LangGraph, OpenClaw, autonomní AI, LLM, 2026, automatizace vývoje">
+    <meta name="author" content="goden.ai">
+    <meta property="og:title" content="Agentic Workflows — Jak AI agenti mění softwarový vývoj v 2026">
+    <meta property="og:description" content="Autonomní AI agenti přepisují pravidla softwarového vývoje. Kompletní průvodce agentic workflows v roce 2026.">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="goden.ai">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://goden.ai/blog/agentic-workflows-2026">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #111111;
+            --bg-code: #161616;
+            --accent: #00ff88;
+            --accent-dim: #00ff8833;
+            --accent-mid: #00ff8866;
+            --text: #e0e0e0;
+            --text-muted: #888888;
+            --border: #1e1e1e;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .grain {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        article {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 60px 24px 120px;
+        }
+
+        .meta {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }
+
+        .meta .tag {
+            background: var(--accent-dim);
+            color: var(--accent);
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--accent), #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            line-height: 1.6;
+            border-left: 3px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 56px 0 20px;
+            position: relative;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 36px 0 12px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-dim);
+            transition: border-color 0.2s;
+        }
+
+        a:hover {
+            border-color: var(--accent);
+        }
+
+        strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        blockquote {
+            background: var(--bg-card);
+            border-left: 3px solid var(--accent);
+            padding: 20px 24px;
+            margin: 32px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        blockquote strong {
+            color: var(--accent);
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-code);
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: var(--accent);
+        }
+
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 24px;
+            overflow-x: auto;
+            margin: 28px 0;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            font-size: inherit;
+            color: var(--text);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--bg-card), #0d1a12);
+            border: 1px solid var(--accent-dim);
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin: 36px 0;
+        }
+
+        .highlight h3 {
+            margin-top: 0;
+            color: var(--accent);
+        }
+
+        ul, ol {
+            margin: 16px 0 24px 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        li::marker {
+            color: var(--accent);
+        }
+
+        .divider {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-mid), transparent);
+            margin: 56px 0;
+        }
+
+        .toc {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 32px;
+            margin: 36px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+        }
+
+        .toc ol {
+            margin: 12px 0 0 20px;
+        }
+
+        .toc li {
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        .author-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 48px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #00ccff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .author-info {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .author-info strong {
+            display: block;
+            font-size: 15px;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 48px 32px;
+            background: linear-gradient(135deg, #0d1a12, var(--bg-card));
+            border: 1px solid var(--accent-dim);
+            border-radius: 16px;
+            margin-top: 56px;
+        }
+
+        .cta h3 {
+            font-size: 1.4rem;
+            margin: 0 0 12px;
+        }
+
+        .cta p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .cta a.btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #0a0a0a;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            transition: opacity 0.2s;
+        }
+
+        .cta a.btn:hover {
+            opacity: 0.85;
+        }
+
+        @media (max-width: 600px) {
+            article { padding: 36px 16px 80px; }
+            h2::before { display: none; }
+            .highlight { padding: 20px; }
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Agentic Workflows — Jak AI agenti mění softwarový vývoj v 2026",
+        "description": "Kompletní průvodce agentic workflows. Jak autonomní AI agenti s CrewAI, LangGraph a OpenClaw transformují softwarový vývoj.",
+        "author": {"@type": "Organization", "name": "goden.ai"},
+        "publisher": {"@type": "Organization", "name": "goden.ai"},
+        "datePublished": "2026-02-11",
+        "dateModified": "2026-02-11",
+        "mainEntityOfPage": "https://goden.ai/blog/agentic-workflows-2026",
+        "inLanguage": "cs"
+    }
+    </script>
+</head>
+<body>
+<div class="grain"></div>
+
+<article>
+
+    <div class="meta">
+        11. února 2026 · 9 min čtení <span class="tag">AI &amp; Dev</span>
+    </div>
+
+    <h1>Agentic Workflows — Jak <span>AI agenti</span> mění softwarový vývoj v&nbsp;2026</h1>
+
+    <p class="subtitle">Copilot vám napovídal. Agenti za vás pracují. Rok 2026 přinesl paradigmatický posun: software už nepíší jen lidé — píšou ho autonomní systémy, které plánují, rozhodují a iterují. Tohle je kompletní průvodce novou érou.</p>
+
+    <div class="author-box">
+        <div class="author-avatar">🤖</div>
+        <div class="author-info">
+            <strong>goden.ai Research</strong>
+            AI strategie, automatizace a praktické nasazení agentních systémů
+        </div>
+    </div>
+
+    <nav class="toc">
+        <h3>Obsah</h3>
+        <ol>
+            <li><a href="#co-jsou">Co jsou agentic workflows a proč záleží</a></li>
+            <li><a href="#anatomie">Anatomie AI agenta v roce 2026</a></li>
+            <li><a href="#nastroje">Nástroje, které definují éru: CrewAI, LangGraph, OpenClaw</a></li>
+            <li><a href="#priklady">Reálné scénáře z praxe</a></li>
+            <li><a href="#architektura">Architektura agentic workflow krok za krokem</a></li>
+            <li><a href="#rizika">Rizika, limity a jak jim předcházet</a></li>
+            <li><a href="#budoucnost">Co přijde dál</a></li>
+        </ol>
+    </nav>
+
+    <!-- ============================================ -->
+    <h2 id="co-jsou">1. Co jsou agentic workflows a proč záleží</h2>
+
+    <p>Klasický LLM prompt funguje jako jednorázová otázka a odpověď. Zeptáte se, dostanete text, konec. <strong>Agentic workflow</strong> je fundamentálně jiný přístup: místo jednoho volání modelu postavíte systém, ve kterém AI agent autonomně plánuje sekvenci kroků, volá nástroje, reaguje na výsledky a iteruje, dokud nedosáhne cíle.</p>
+
+    <p>Rozdíl je jako mezi kalkulačkou a zaměstnancem. Kalkulačka vám spočítá, co řeknete. Zaměstnanec dostane úkol, rozmyslí si postup, použije dostupné nástroje, ověří výsledek a přijde s hotovou prací.</p>
+
+    <p>V kontextu softwarového vývoje to znamená, že agent dokáže:</p>
+
+    <ul>
+        <li>Přečíst GitHub issue a pochopit požadavek</li>
+        <li>Prozkoumat kódovou bázi a identifikovat relevantní soubory</li>
+        <li>Napsat implementaci včetně testů</li>
+        <li>Spustit testy, opravit chyby, iterovat</li>
+        <li>Vytvořit pull request s popisem změn</li>
+    </ul>
+
+    <p>To není sci-fi. To je realita roku 2026. Firmy jako Cognition (Devin), Google (Gemini Code Assist) a desítky open-source projektů tenhle přístup aktivně nasazují v produkci. Podle průzkumu <strong>Stack Overflow Developer Survey 2025</strong> už 43 % vývojářů pravidelně pracuje s nějakou formou agentního toolingu.</p>
+
+    <blockquote>
+        <strong>„Nejlepší kód je ten, který nemusíte psát."</strong> V éře agentic workflows to dostává úplně nový význam — protože ho za vás napíše agent, který rozumí kontextu celého projektu.
+    </blockquote>
+
+    <!-- ============================================ -->
+    <h2 id="anatomie">2. Anatomie AI agenta v roce 2026</h2>
+
+    <p>Každý funkční AI agent se skládá z několika klíčových komponent. Pochopení této anatomie je nezbytné pro návrh spolehlivých agentic workflows.</p>
+
+    <h3>Mozek: LLM jako rozhodovací jádro</h3>
+
+    <p>Jádrem agenta je velký jazykový model — Claude, GPT, Gemini nebo open-source alternativy jako Llama a Mistral. Model funguje jako „mozek", který interpretuje úkoly, plánuje kroky a rozhoduje, jaký nástroj použít. V roce 2026 vidíme konvergenci k modelům s nativní podporou <strong>tool calling</strong> a <strong>structured output</strong>, což dramaticky zvyšuje spolehlivost agentních systémů.</p>
+
+    <h3>Paměť: Krátkodobá i dlouhodobá</h3>
+
+    <p>Agent bez paměti je jako vývojář s amnézií. Moderní agenti operují se třemi vrstvami paměti:</p>
+
+    <ul>
+        <li><strong>Konverzační paměť</strong> — kontext aktuální session (context window modelu)</li>
+        <li><strong>Pracovní paměť</strong> — scratchpad pro mezivýsledky, poznámky, stav úkolu</li>
+        <li><strong>Dlouhodobá paměť</strong> — persistentní úložiště (vektorová DB, soubory) s informacemi napříč sessions</li>
+    </ul>
+
+    <p>Právě správa paměti je v praxi největší výzvou. Agent, který zapomene, co zjistil před třemi kroky, bude opakovat stejné chyby dokola. Efektivní paměťová architektura je to, co odlišuje toy demo od produkčního systému.</p>
+
+    <h3>Nástroje: Ruce agenta</h3>
+
+    <p>Samotný LLM může jen generovat text. Aby agent skutečně <em>pracoval</em>, potřebuje nástroje — funkce, které může volat. Typický development agent má přístup k:</p>
+
+    <ul>
+        <li>Souborovému systému (čtení, zápis, editace kódu)</li>
+        <li>Shellu (spouštění příkazů, testů, buildů)</li>
+        <li>Git operacím (commit, push, PR)</li>
+        <li>Prohlížeči (web search, dokumentace)</li>
+        <li>API třetích stran (Jira, Slack, databáze)</li>
+    </ul>
+
+    <h3>Plánovací smyčka: ReAct a beyond</h3>
+
+    <p>Agent nepracuje lineárně. Používá plánovací smyčku — nejčastěji variantu <strong>ReAct</strong> (Reasoning + Acting) patternu, kde v každém kroku model přemýšlí o situaci, zvolí akci, pozoruje výsledek a rozhodne o dalším kroku. Pokročilejší systémy v roce 2026 kombinují ReAct s hierarchickým plánováním, kde vysokoúrovňový plánovač deleguje podúkoly specializovaným sub-agentům.</p>
+
+    <!-- ============================================ -->
+    <h2 id="nastroje">3. Nástroje, které definují éru</h2>
+
+    <p>Tři frameworky a platformy dominují agentnímu ekosystému v roce 2026. Každý řeší jiný aspekt problému a v praxi se často kombinují.</p>
+
+    <div class="highlight">
+        <h3>🚀 CrewAI — Multi-agent orchestrace</h3>
+        <p><a href="https://www.crewai.com/">CrewAI</a> je Python framework pro orchestraci týmů AI agentů. Jeho síla spočívá v jednoduchosti: definujete agenty s rolemi, přiřadíte jim úkoly a CrewAI řeší koordinaci, delegaci a komunikaci mezi nimi.</p>
+        <p>V praxi to vypadá tak, že máte <strong>Analyst agenta</strong>, který zkoumá požadavky, <strong>Developer agenta</strong>, který píše kód, a <strong>Reviewer agenta</strong>, který kontroluje kvalitu. CrewAI zajistí, že spolupracují ve správném pořadí a sdílejí kontext.</p>
+<pre><code>from crewai import Agent, Task, Crew
+
+analyst = Agent(
+    role="Requirements Analyst",
+    goal="Rozložit feature request na technické úkoly",
+    backstory="Senior analytik s 10 lety zkušeností",
+    tools=[github_tool, jira_tool]
+)
+
+developer = Agent(
+    role="Backend Developer",
+    goal="Implementovat feature podle specifikace",
+    tools=[file_tool, shell_tool, git_tool]
+)
+
+reviewer = Agent(
+    role="Code Reviewer",
+    goal="Zajistit kvalitu a bezpečnost kódu",
+    tools=[file_tool, shell_tool]
+)
+
+crew = Crew(
+    agents=[analyst, developer, reviewer],
+    tasks=[analyze_task, implement_task, review_task],
+    process="sequential"
+)
+
+result = crew.kickoff()</code></pre>
+        <p>CrewAI v roce 2026 podporuje <strong>hierarchický proces</strong> s manager agentem, <strong>asynchronní task execution</strong> a nativní integraci s většinou populárních LLM providerů. Je ideální pro scénáře, kde potřebujete simulovat celý tým — od návrhu přes implementaci po QA.</p>
+    </div>
+
+    <div class="highlight">
+        <h3>🔗 LangGraph — Stavové agentní grafy</h3>
+        <p><a href="https://github.com/langchain-ai/langgraph">LangGraph</a> od LangChain je low-level framework pro stavbu agentů jako orientovaných grafů. Místo lineární pipeline definujete uzly (LLM volání, tool calls, podmínky) a hrany (přechody mezi stavy). To vám dává chirurgickou kontrolu nad flow agentem.</p>
+<pre><code>from langgraph.graph import StateGraph, END
+from typing import TypedDict
+
+class AgentState(TypedDict):
+    task: str
+    code: str
+    tests_passed: bool
+    iterations: int
+
+def plan(state):
+    # LLM analyzuje úkol a vytvoří plán
+    ...
+
+def code(state):
+    # LLM generuje/upravuje kód
+    ...
+
+def test(state):
+    # Spustí testy a vyhodnotí výsledky
+    ...
+
+def should_retry(state):
+    if state["tests_passed"]:
+        return "done"
+    if state["iterations"] > 3:
+        return "escalate"
+    return "retry"
+
+graph = StateGraph(AgentState)
+graph.add_node("plan", plan)
+graph.add_node("code", code)
+graph.add_node("test", test)
+graph.add_conditional_edges("test", should_retry, {
+    "retry": "code",
+    "done": END,
+    "escalate": "human_review"
+})
+agent = graph.compile()</code></pre>
+        <p>Klíčová výhoda LangGraphu je <strong>checkpointing</strong> — agent může být pozastaven, serializován a obnoven. To je kritické pro dlouhotrvající workflows, kde agent čeká na human-in-the-loop schválení nebo na dokončení CI pipeline. V roce 2026 LangGraph přidal <strong>LangGraph Platform</strong> pro hostování agentů jako služeb s REST API.</p>
+    </div>
+
+    <div class="highlight">
+        <h3>🐾 OpenClaw — Osobní AI agent s persistencí</h3>
+        <p><a href="https://github.com/openclaw/openclaw">OpenClaw</a> je open-source platforma, která řeší problém, na který CrewAI ani LangGraph nemyslí: <strong>jak dát agentovi trvalou identitu, paměť a přístup k vašemu prostředí</strong>. OpenClaw agent běží jako daemon, má vlastní workspace, souborovou paměť, přístup k shellu, prohlížeči a komunikačním kanálům (Telegram, Discord, Signal, WhatsApp).</p>
+        <p>Zatímco CrewAI a LangGraph jsou frameworky pro stavbu workflows, OpenClaw je <strong>runtime pro agenty, kteří žijí</strong>. Agent si pamatuje kontext napříč konverzacemi, proaktivně kontroluje e-maily a kalendář přes heartbeat systém, spouští naplánované úkoly přes cron a dokáže orchestrovat sub-agenty pro složitější práci.</p>
+        <p>Pro softwarový vývoj to znamená, že váš OpenClaw agent může:</p>
+        <ul>
+            <li>Monitorovat GitHub repozitář a reagovat na nové issues</li>
+            <li>Spouštět CrewAI nebo LangGraph workflows jako sub-procesy</li>
+            <li>Udržovat si kontext projektu v souborové paměti (<code>MEMORY.md</code>)</li>
+            <li>Komunikovat s vámi přes preferovaný kanál, když potřebuje schválení</li>
+            <li>Běžet na vlastním serveru — vaše data nikam neutíkají</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ============================================ -->
+    <h2 id="priklady">4. Reálné scénáře z praxe</h2>
+
+    <h3>Scénář 1: Automatický bug fix pipeline</h3>
+
+    <p>Startup s 8členným týmem nasadil CrewAI workflow napojený na GitHub webhooks. Když přijde bug report, Analyst agent extrahuje reprodukční kroky, Developer agent lokalizuje chybu v kódu, napíše fix a testy, a Reviewer agent zkontroluje diff. Pokud vše projde, PR se automaticky vytvoří. Výsledek: <strong>67 % bugů kategorie P3/P4 se řeší bez lidského zásahu</strong>. Průměrný čas od reportu po merged PR klesl z 2,3 dne na 4 hodiny.</p>
+
+    <h3>Scénář 2: Migrace legacy kódu</h3>
+
+    <p>Enterprise klient potřeboval migrovat 200k řádků Java 8 kódu na Java 21. LangGraph workflow s custom stavovým grafem procházel soubor po souboru, aplikoval migrační pravidla, spouštěl testy a v případě selhání iteroval s kontextem chybové hlášky. Lidský vývojář fungoval jako reviewer v human-in-the-loop uzlu grafu. Migrace, která by tradičně zabrala <strong>6 měsíců, byla hotová za 5 týdnů</strong>.</p>
+
+    <h3>Scénář 3: DevOps agent s OpenClaw</h3>
+
+    <p>Freelance vývojář provozuje OpenClaw agenta na VPS, který monitoruje jeho 3 produkční servery. Agent každé 4 hodiny kontroluje logy, metriky a security alerts. Když detekuje anomálii, pošle notifikaci přes Telegram s analýzou a navrhovaným řešením. V 80 % případů stačí odpovědět „fix it" a agent problém vyřeší sám — restartuje službu, aplikuje config změnu nebo zavolá rollback.</p>
+
+    <h3>Scénář 4: Dokumentační workflow</h3>
+
+    <p>Tým používá kombinaci všech tří nástrojů: OpenClaw agent monitoruje git commits a detekuje změny v API. Když najde nezdokumentované endpointy, spustí CrewAI crew, kde jeden agent generuje OpenAPI spec, druhý píše lidsky čitelnou dokumentaci a třetí generuje příklady. Výsledek se commitne do docs repozitáře. <strong>Dokumentace je vždy aktuální</strong>, bez toho, aby ji někdo manuálně psal.</p>
+
+    <!-- ============================================ -->
+    <h2 id="architektura">5. Architektura agentic workflow krok za krokem</h2>
+
+    <p>Pokud chcete navrhnout vlastní agentic workflow pro váš tým, tady je osvědčený postup:</p>
+
+    <h3>Krok 1: Definujte scope a guardrails</h3>
+
+    <p>Nejdůležitější rozhodnutí je, co agent <strong>smí</strong> a co <strong>nesmí</strong>. Nikdy nestavte agenta, který „může všechno". Definujte explicitní boundaries: které repozitáře může editovat, které příkazy smí spouštět, jaký je maximální počet iterací. Princip nejmenšího oprávnění platí pro AI agenty stejně jako pro lidské uživatele.</p>
+
+    <h3>Krok 2: Zvolte správnou granularitu agentů</h3>
+
+    <p>Jeden mega-agent, který dělá všechno, je anti-pattern. Ale 15 hyper-specializovaných agentů je orchestrační noční můra. Sweet spot je typicky <strong>3–5 agentů</strong> s jasně oddělenými odpovědnostmi. Pravidlo: pokud agent potřebuje víc než 8 nástrojů, pravděpodobně dělá příliš mnoho věcí.</p>
+
+    <h3>Krok 3: Navrhněte feedback loop</h3>
+
+    <p>Každý kvalitní agentic workflow obsahuje feedback smyčku. Agent napíše kód → spustí testy → pokud selžou, dostane chybovou hlášku jako kontext → opraví kód → opakuje. Bez této smyčky máte jen sofistikovaný code generator, ne agenta. Definujte jasné <strong>exit conditions</strong>: maximální iterace, timeout, eskalace na člověka.</p>
+
+    <h3>Krok 4: Implementujte observability</h3>
+
+    <p>Agent, do kterého nevidíte, je agent, kterému nemůžete důvěřovat. Logujte každý krok: jaký prompt agent dostal, jaký nástroj zvolil, co vrátil, jak se rozhodl. Nástroje jako <strong>LangSmith</strong> (pro LangGraph) nebo nativní logy OpenClaw toto řeší out of the box. Bez observability neodhalíte, proč agent udělal špatné rozhodnutí.</p>
+
+    <h3>Krok 5: Začněte s human-in-the-loop</h3>
+
+    <p>Neskolejte z autocompletování rovnou na plnou autonomii. Začněte s workflow, kde agent připraví práci a člověk schvaluje. Postupně, jak roste důvěra, rozšiřujte autonomii. Typická trajektorie: <strong>suggest → draft → auto-merge s review → full auto</strong> (pro nízko-rizikové změny).</p>
+
+    <!-- ============================================ -->
+    <h2 id="rizika">6. Rizika, limity a jak jim předcházet</h2>
+
+    <p>Agentic workflows nejsou silver bullet. Tady jsou reálné problémy, se kterými se setkáte:</p>
+
+    <h3>Halucinace v akci</h3>
+
+    <p>Když LLM halucinuje v chatu, je to nepříjemné. Když halucinuje agent, který má přístup k file systému a shellu, je to <strong>nebezpečné</strong>. Agent může vytvořit neexistující API endpoint, zavolat špatný příkaz nebo „opravit" kód způsobem, který projde testy, ale zavede subtilní bug. Řešení: sandboxing, git-based rollback, mandatory code review pro auto-merged změny.</p>
+
+    <h3>Spirála neúspěchu</h3>
+
+    <p>Agent, který selhává a opakovaně zkouší stejný přístup, spaluje tokeny a čas bez výsledku. Bez proper exit conditions může běžet hodiny. Vždy implementujte <strong>circuit breaker</strong>: maximální iterace, timeout, detekce opakujících se chyb.</p>
+
+    <h3>Kontextová ztráta</h3>
+
+    <p>I nejlepší modely mají omezený context window. Při práci s velkými kódovými bázemi agent nevyhnutelně ztratí přehled. Řešení: inteligentní retrieval (RAG nad kódem), hierarchické plánování, kde sub-agenti pracují s menšími scope, a explicitní paměťové soubory.</p>
+
+    <h3>Bezpečnost a supply chain</h3>
+
+    <p>Agent s přístupem k shellu je potenciální attack vektor. Prompt injection přes issue text na GitHubu, malicious kód v dependencies — tyto hrozby jsou reálné. Vždy běžte agenty v <strong>izolovaném prostředí</strong> (kontejner, VM), používejte allow-listy pro příkazy a nikdy nedávejte agentovi produkční credentials bez proper secret managementu.</p>
+
+    <h3>Cena</h3>
+
+    <p>Agentic workflows jsou token-hungry. Jeden bug fix workflow může spotřebovat 50–200k tokenů. Při stovkách issues měsíčně to není zanedbatelné. Optimalizujte: použijte menší modely pro jednoduché kroky (routing, klasifikace), silné modely jen pro reasoning-heavy úkoly. Cachujte opakované dotazy.</p>
+
+    <hr class="divider">
+
+    <!-- ============================================ -->
+    <h2 id="budoucnost">7. Co přijde dál</h2>
+
+    <p>Rok 2026 je teprve začátek. Trendy, které pozorujeme:</p>
+
+    <ul>
+        <li><strong>Specializované coding modely</strong> — modely trénované přímo na agentic coding tasks (ne jen na code completion) budou spolehlivější a levnější</li>
+        <li><strong>Standardizace tool protocols</strong> — Model Context Protocol (MCP) od Anthropic se stává de facto standardem pro komunikaci mezi agenty a nástroji</li>
+        <li><strong>Agent-to-agent komunikace</strong> — Google A2A protokol umožní agentům různých vendorů spolupracovat standardizovaným způsobem</li>
+        <li><strong>Regulace</strong> — EU AI Act začíná řešit otázku odpovědnosti za kód generovaný autonomními agenty</li>
+        <li><strong>IDE integrace</strong> — hranice mezi IDE a agentem se rozplývá; Cursor, Windsurf a další ukazují směr</li>
+    </ul>
+
+    <blockquote>
+        Nejde o to, jestli AI agenti nahradí vývojáře. Jde o to, že <strong>vývojáři s agenty nahradí vývojáře bez agentů</strong>. Agentic workflows nejsou hrozba — jsou to power tools pro ty, kdo se je naučí používat.
+    </blockquote>
+
+    <p>Softwarový vývoj se mění rychleji než kdykoliv předtím. Agentic workflows představují největší posun v produktivitě od příchodu open-source a cloud computingu. Frameworky jako <strong>CrewAI</strong>, <strong>LangGraph</strong> a platformy jako <strong>OpenClaw</strong> snižují bariéru vstupu na minimum. Začít můžete dnes — a pokud jste to ještě neudělali, vaše konkurence pravděpodobně ano.</p>
+
+    <div class="cta">
+        <h3>Chcete agentní workflows nasadit ve vaší firmě?</h3>
+        <p>Pomáháme týmům s návrhem, implementací a provozem AI agentů na míru.</p>
+        <a href="https://goden.ai/kontakt" class="btn">Domluvit konzultaci →</a>
+    </div>
+
+</article>
+
+</body>
+</html>

@@ -14,12 +14,18 @@
   </url>
   <url>
     <loc>https://goden.ai/blog/</loc>
-    <lastmod>2026-02-11</lastmod>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Blog posts (newest → oldest) -->
+  <url>
+    <loc>https://goden.ai/blog/whisper-server-python314-debugging.html</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://goden.ai/blog/searxng-self-hosted-search-ai-agenty.html</loc>
     <lastmod>2026-02-11</lastmod>

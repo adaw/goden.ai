@@ -3,13 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GODEN</title>
-<meta name="description" content="GODEN — AI Platform">
+<title>GODEN AI</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif}
+html,body{height:100%;background:#000;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace}
+#t{color:#fff;font-size:clamp(28px,5vw,48px);letter-spacing:.08em;white-space:nowrap}
+#c{display:inline-block;width:.55em;height:1.15em;background:#fff;vertical-align:text-bottom;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 </style>
 </head>
 <body>
+<div id="t"><span id="s"></span><span id="c"></span></div>
+<script>
+const text="GODEN AI",el=document.getElementById('s');
+let i=0;
+setTimeout(()=>{
+  const iv=setInterval(()=>{
+    el.textContent+=text[i++];
+    if(i>=text.length)clearInterval(iv);
+  },120);
+},2500);
+</script>
 </body>
 </html>

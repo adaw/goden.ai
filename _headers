@@ -1,0 +1,15 @@
+# Security headers for goden.ai
+# Cloudflare Pages / GitHub Pages _headers format
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+
+/index.html
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.goden.ai
+
+/*.html
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
